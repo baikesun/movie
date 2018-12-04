@@ -36,11 +36,22 @@ int main(int argc, char *argv[]) {
 	}
 
 	//1.4 FILE close
+	fclose(fp);
 	
 	//2. program start
 	while(exit_flag == 0)
 	{
 		//2.1 print menu message and get input option
+		printf("-------------------- MENU --------------------\n");
+		printf(" 1. Print all the movies\n");
+		printf(" 2. Search for specific COUNTRY movies\n");
+		printf(" 3. Search for specific RUNTIME movies\n");
+		printf(" 4. Search for specific SCORE movies\n");
+		printf(" 5. exit\n");
+		printf("----------------------------------------------\n\n");
+		
+		printf(" SELECT AN OPTION : ");
+		scanf("%d", &option);
 		
 		switch(option)
 		{
@@ -53,14 +64,29 @@ int main(int argc, char *argv[]) {
 				break;
 				
 			case 2: //print movies of specific country
-
+				printf("SEELCT THE COUNTRY : ");
+				scanf("%s", country);
+				
+				repFunc = mv_printCountry;
+				arg = country;
+				
 				break;
 				
 			case 3: //print movies with long runtime
-
+				printf("SELECT THE RUNTIME : ");
+				scanf("%d", runTime);
+				
+				repFunc = mv_printRunTime;
+				arg = runTime;
+				
 				break;
 				
 			case 4: //print movies with high score
+				printf("SELECT THE SCORE : ");
+				scanf("%f", score);
+				
+				repFunc = mv_printScore;
+				arg = score;
 				
 				break;
 				
@@ -76,7 +102,10 @@ int main(int argc, char *argv[]) {
 		}
 		
 		//2.2 printing operation by function pointer (list_repeatFunc() is called here)
+		list_repeatFunc(repFunc, arg, list);
+		
 		//2.3 print number of movies
+		printf("    Totally %d movies are listed!\n\n\n");
 	}
 	
 	return 0;
