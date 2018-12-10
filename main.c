@@ -25,15 +25,16 @@ int main(int argc, char *argv[]) {
 	//1.1 FILE open
 	fp = fopen("movie.dat", "r");
 	
-	//1.2 list generation (use function list_genList() )
+	//1.2 list generation ( use function list_genList() )
 	list = list_genList();
 	
 	//1.3 read each movie data from the file and add it to the linked list
-	while ( /* read name, country, runtime and score*/ 1)
+	while (mvInfo == NULL)
 	{	
 		//generate a movie info instance(mvInfo) with function mv_genMvInfo()
-		fscanf(fp, "%s %s %i %f", movInfo_t->name, movInfo_t->madeIn, movInfo_t->runTime, movInfo_t->score);
+		fscanf(fp, "%s %s %i %f", &name, &country, &runTime, &score);
 		
+		mv_genMvInfo(name, score, runTime, country);
 		
 		list_addTail(mvInfo, list);
 	}
