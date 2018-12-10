@@ -29,10 +29,9 @@ int main(int argc, char *argv[]) {
 	list = list_genList();
 	
 	//1.3 read each movie data from the file and add it to the linked list
-	while (mvInfo == NULL)
+	while ( fscanf(fp, "%s %s %i %f", &name, &country, &runTime, &score) ==  )
 	{	
 		//generate a movie info instance(mvInfo) with function mv_genMvInfo()
-		fscanf(fp, "%s %s %i %f", &name, &country, &runTime, &score);
 		
 		mv_genMvInfo(name, score, runTime, country);
 		
@@ -60,16 +59,17 @@ int main(int argc, char *argv[]) {
 		switch(option)
 		{
 			case 1: //print all the movies
-				printf("\nprinting all the movies in the list.....\n\n\n");
-				printf("----------------------------------------\n");
+				printf("\n printing all the movies in the list.....\n\n\n");
+				printf("----------------------------------------------\n");
 				
 				repFunc = mv_printAll;
 				arg = NULL;
 				
+				printf("\n    Totally %d movies are listed!\n\n", cnt);
 				break;
 				
 			case 2: //print movies of specific country
-				printf("Select a COUNTRY : ");
+				printf("    Select a COUNTRY : ");
 				scanf("%s", country);
 				
 				repFunc = mv_printCountry;
@@ -78,38 +78,40 @@ int main(int argc, char *argv[]) {
 				break;
 				
 			case 3: //print movies with long runtime
-				printf("Select a RUNTIME : ");
+				printf("    Select a RUNTIME : ");
 				scanf("%d", &runTime);
 				
 				repFunc = mv_printRunTime;
 				arg = &runTime;
 				
+				printf("\n    Totally %d movies are listed!\n\n", cnt);
 				break;
 				
 			case 4: //print movies with high score
-				printf("Select a SCORE : ");
+				printf("    Select a SCORE : ");
 				scanf("%f", &score);
 				
 				repFunc = mv_printScore;
 				arg = &score;
 				
+				printf("\n    Totally %d movies are listed!\n\n", cnt);
 				break;
 				
 			case 5:
-				printf("\n\nBye!\n\n");
+				printf("\n\n    Bye!\n\n");
 				exit_flag = 1;
 				
+				printf("\n    Totally %d movies are listed!\n\n", cnt);
 				break;
 				
 			default:
-				printf("wrong command! input again\n");
+				printf("    wrong command! input again\n");
 				
 				break;
 		}
 		
 		//2.2 printing operation by function pointer (list_repeatFunc() is called here)
 		//2.3 print number of movies
-		printf("    Totally %d movies are listed!\n\n", cnt);
 	}
 	
 	return 0;

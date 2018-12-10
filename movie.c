@@ -16,7 +16,16 @@ void* mv_genMvInfo(char* name, float score, int runTime, char* country)
 	movInfo_t* mvPtr;
 	
 	//allocate memory and set the member variables
-	name = mvPtr->name;
+	mvPtr = (movInfo_t*)malloc(sizeof(movInfo_t));
+		
+	if(mvPtr == NULL)
+	{
+		printf("ERROR!\n");
+		
+		return NULL;
+	}
+	
+	name = strcpy(name, name);
 	score = mvPtr->score;
 	runTime = mvPtr->runTime;
 	country = mvPtr->madeIn;
@@ -40,14 +49,18 @@ void printMv(void* obj)
 
 int mv_printAll(void* obj, void* arg)
 {
-	movInfo_t* mvPtr;
+	movInfo_t* mvPtr = (movInfo_t*)obj;
 	
-	while(mvPtr != NULL)
-	{
-		printf("--------------------------------------------------\n");
-		printMv(mvPtr->name);
-		printf("--------------------------------------------------\n");
-	}
+	arg = mvPtr;
+	
+	mvPtr->madeIn;
+	mvPtr->name;
+	mvPtr->runTime;
+	mvPtr->score;
+	
+	printf("--------------------------------------------------\n");
+	printMv(arg);
+	printf("--------------------------------------------------\n");
 	
 	return;
 }
