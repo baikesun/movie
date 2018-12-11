@@ -25,15 +25,24 @@ int main(int argc, char *argv[]) {
 	//1.1 FILE open
 	fp = fopen("movie.dat", "r");
 	
+	if(fp != NULL)
+	{
+		printf("  파일이 열렸습니다.\n"); 
+	}
+	else
+	{
+		printf("ERROR!\n");
+	}
+	
 	//1.2 list generation ( use function list_genList() )
 	list = list_genList();
 	
 	//1.3 read each movie data from the file and add it to the linked list
-	while ( fscanf(fp, "%s %s %i %f", &name, &country, &runTime, &score) ==  )
+	while ( fscanf(fp, "%s %s %i %f", name, country, &runTime, &score) != EOF )
 	{	
 		//generate a movie info instance(mvInfo) with function mv_genMvInfo()
 		
-		mv_genMvInfo(name, score, runTime, country);
+		mvInfo = mv_genMvInfo(name, score, runTime, country);
 		
 		list_addTail(mvInfo, list);
 	}
@@ -65,6 +74,8 @@ int main(int argc, char *argv[]) {
 				repFunc = mv_printAll;
 				arg = NULL;
 				
+				list_repeatFunc(repFunc, arg, list);
+				
 				printf("\n    Totally %d movies are listed!\n\n", cnt);
 				break;
 				
@@ -75,14 +86,19 @@ int main(int argc, char *argv[]) {
 				repFunc = mv_printCountry;
 				arg = country;
 				
+				list_repeatFunc(repFunc, arg, list);
+				
+				printf("\n    Totally %d movies are listed!\n\n", cnt);
 				break;
 				
 			case 3: //print movies with long runtime
 				printf("    Select a RUNTIME : ");
 				scanf("%d", &runTime);
-				
+								
 				repFunc = mv_printRunTime;
 				arg = &runTime;
+				
+				list_repeatFunc(repFunc, arg, list);
 				
 				printf("\n    Totally %d movies are listed!\n\n", cnt);
 				break;
@@ -94,6 +110,8 @@ int main(int argc, char *argv[]) {
 				repFunc = mv_printScore;
 				arg = &score;
 				
+				list_repeatFunc(repFunc, arg, list);
+				
 				printf("\n    Totally %d movies are listed!\n\n", cnt);
 				break;
 				
@@ -101,7 +119,6 @@ int main(int argc, char *argv[]) {
 				printf("\n\n    Bye!\n\n");
 				exit_flag = 1;
 				
-				printf("\n    Totally %d movies are listed!\n\n", cnt);
 				break;
 				
 			default:

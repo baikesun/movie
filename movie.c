@@ -25,10 +25,10 @@ void* mv_genMvInfo(char* name, float score, int runTime, char* country)
 		return NULL;
 	}
 	
-	name = strcpy(name, name);
-	score = mvPtr->score;
-	runTime = mvPtr->runTime;
-	country = mvPtr->madeIn;
+	strcpy(mvPtr->name, name);
+	strcpy(mvPtr->madeIn, country);
+	mvPtr->score = score;
+	mvPtr->runTime = runTime;
 	
 	return (void*)mvPtr;
 }
@@ -36,6 +36,7 @@ void* mv_genMvInfo(char* name, float score, int runTime, char* country)
 void printMv(void* obj)
 {
 	movInfo_t* mvPtr = (movInfo_t*)obj;
+	
 	if (mvPtr == NULL)
 	{
 		printf("[ERROR] failed to print the movie Info! (object is NULL)\n");
@@ -51,16 +52,8 @@ int mv_printAll(void* obj, void* arg)
 {
 	movInfo_t* mvPtr = (movInfo_t*)obj;
 	
-	arg = mvPtr;
-	
-	mvPtr->madeIn;
-	mvPtr->name;
-	mvPtr->runTime;
-	mvPtr->score;
-	
-	printf("--------------------------------------------------\n");
-	printMv(arg);
-	printf("--------------------------------------------------\n");
+	printMv(mvPtr);
+	printf("----------------------------------------------\n");
 	
 	return;
 }
@@ -68,16 +61,13 @@ int mv_printAll(void* obj, void* arg)
 
 int mv_printScore(void* obj, void* arg)
 {
-	movInfo_t* mvPtr;
+	movInfo_t* mvPtr = (movInfo_t*)obj;
 	
-	while(mvPtr != NULL)
+	if((mvPtr->score) >= (*(float*)arg))
 	{
-		if(obj >= arg)
-		{
-			printf("--------------------------------------------------\n");
-			printMv(obj);
-			printf("--------------------------------------------------\n");
-		}
+		printf("----------------------------------------------\n");
+		printMv(mvPtr);
+		printf("----------------------------------------------\n");
 	}
 	
 	return;
@@ -85,16 +75,13 @@ int mv_printScore(void* obj, void* arg)
 
 int mv_printRunTime(void* obj, void* arg)
 {
-	movInfo_t* mvPtr;
+	movInfo_t* mvPtr = (movInfo_t*)obj;
 	
-	while(mvPtr != NULL)
+	if((mvPtr->runTime) >= (*(int*)arg))
 	{
-		if(obj >= arg)
-		{
-			printf("--------------------------------------------------\n");
-			printMv(obj);
-			printf("--------------------------------------------------\n");
-		}
+		printf("--------------------------------------------------\n");
+		printMv(mvPtr);
+		printf("--------------------------------------------------\n");
 	}
 	
 	return;
@@ -102,16 +89,13 @@ int mv_printRunTime(void* obj, void* arg)
 
 int mv_printCountry(void* obj, void* arg)
 {
-	movInfo_t* mvPtr;
-		
-	while(mvPtr != NULL)
+	movInfo_t* mvPtr = (movInfo_t*)obj;
+	
+	if(!strcmp(arg, mvPtr->madeIn))
 	{
-		if(obj == arg)
-		{
-			printf("--------------------------------------------------\n");
-			printMv(obj);
-			printf("--------------------------------------------------\n");
-		}
+		printf("--------------------------------------------------\n");
+		printMv(mvPtr);
+		printf("--------------------------------------------------\n");
 	}
 	
 	return;
