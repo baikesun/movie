@@ -69,12 +69,13 @@ int main(int argc, char *argv[]) {
 		{
 			case 1: //print all the movies
 				printf("\n  printing all the movies in the list.....\n\n");
-				printf("----------------------------------------------\n");
+				printf("--------------------------------------------------\n");
 				
 				repFunc = mv_printAll;
 				arg = NULL;
 				
-				//cnt = 
+				cnt = list_repeatFunc(repFunc, arg, list);
+				
 				break;
 				
 			case 2: //print movies of specific country
@@ -82,10 +83,12 @@ int main(int argc, char *argv[]) {
 				scanf("%s", country);
 				printf("\n"); 
 				
-				printf("----------------------------------------------\n");
+				printf("--------------------------------------------------\n");
 				
 				repFunc = mv_printCountry;
 				arg = country;
+				
+				cnt = list_repeatFunc(repFunc, arg, list);
 				
 				break;
 				
@@ -94,10 +97,12 @@ int main(int argc, char *argv[]) {
 				scanf("%d", &runTime);
 				printf("\n");
 								
-				printf("----------------------------------------------\n");
+				printf("--------------------------------------------------\n");
 				
 				repFunc = mv_printRunTime;
 				arg = &runTime;
+				
+				cnt = list_repeatFunc(repFunc, arg, list);
 				
 				break;
 				
@@ -106,15 +111,18 @@ int main(int argc, char *argv[]) {
 				scanf("%f", &score);
 				printf("\n");
 				
-				printf("----------------------------------------------\n");
+				printf("--------------------------------------------------\n");
 				
 				repFunc = mv_printScore;
 				arg = &score;
+				
+				cnt = list_repeatFunc(repFunc, arg, list);
 				
 				break;
 				
 			case 5:
 				printf("\n\n  # Bye #\n\n");
+				
 				exit_flag = 1;
 				
 				break;
@@ -126,15 +134,12 @@ int main(int argc, char *argv[]) {
 		}
 		
 		//2.2 printing operation by function pointer (list_repeatFunc() is called here)
-		if(option != 5)
-		{
-			list_repeatFunc(repFunc, arg, list);
-		}
+			//switch문의 각 case에서 실행함  
 		
 		//2.3 print number of movies
 		if(option != 5)
 		{
-			printf("    Totally %d movies are checked!\n\n", cnt);
+			printf("\n  ++ Totally %d movies are checked ++\n\n", cnt);
 		}
 	}
 	

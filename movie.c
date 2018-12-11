@@ -48,7 +48,7 @@ void printMv(void* obj)
 	
 	//구조체에 저장된 정보를 출력  
 	printf("Name : %s (%s)\n", mvPtr->name, mvPtr->madeIn);
-	printf("running time : %i, score : %f\n\n", mvPtr->runTime, mvPtr->score);
+	printf("running time : %i, score : %f\n", mvPtr->runTime, mvPtr->score);
 	
 	return;
 }
@@ -58,9 +58,9 @@ int mv_printAll(void* obj, void* arg)
 	movInfo_t* mvPtr = (movInfo_t*)obj;
 	
 	printMv(mvPtr);
-	printf("----------------------------------------------\n");
+	printf("--------------------------------------------------\n");
 	
-	return;
+	return 1;   //list_repeatFunc()을 지날 때마다 1씩 더해짐. 
 }
 
 
@@ -72,10 +72,15 @@ int mv_printScore(void* obj, void* arg)
 	if((mvPtr->score) >= (*(float*)arg))
 	{
 		printMv(mvPtr);
-		printf("----------------------------------------------\n");
+		printf("--------------------------------------------------\n");
 	}
 	
-	return;
+	else
+	{
+		return 0;   //조건에 부합하지 않는 영화는 더하기 0  
+	}
+	
+	return 1;   //list_repeatFunc()을 지날 때마다 1씩 더해짐. 
 }
 
 int mv_printRunTime(void* obj, void* arg)
@@ -89,7 +94,11 @@ int mv_printRunTime(void* obj, void* arg)
 		printf("--------------------------------------------------\n");
 	}
 	
-	return;
+	else
+	{
+		return 0;   //조건에 부합하지 않는 영화는 더하기 0
+	}
+	return 1;   //list_repeatFunc()을 지날 때마다 1씩 더해짐. 
 }
 
 int mv_printCountry(void* obj, void* arg)
@@ -103,5 +112,10 @@ int mv_printCountry(void* obj, void* arg)
 		printf("--------------------------------------------------\n");
 	}
 	
-	return;
+	else
+	{
+		return 0;   //조건에 부합하지 않는 영화는 더하기 0
+	}
+	
+	return 1;   //list_repeatFunc()을 지날 때마다 1씩 더해짐. 
 }
