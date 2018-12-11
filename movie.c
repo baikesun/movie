@@ -16,8 +16,11 @@ void* mv_genMvInfo(char* name, float score, int runTime, char* country)
 	movInfo_t* mvPtr;
 	
 	//allocate memory and set the member variables
+	
+	//동적 메모리 할당 
 	mvPtr = (movInfo_t*)malloc(sizeof(movInfo_t));
-		
+	
+	//메모리가 할당되지 않으면 error	
 	if(mvPtr == NULL)
 	{
 		printf("ERROR!\n");
@@ -25,6 +28,7 @@ void* mv_genMvInfo(char* name, float score, int runTime, char* country)
 		return NULL;
 	}
 	
+	//파일의 정보를 구조체에 저장함. 
 	strcpy(mvPtr->name, name);
 	strcpy(mvPtr->madeIn, country);
 	mvPtr->score = score;
@@ -42,6 +46,7 @@ void printMv(void* obj)
 		printf("[ERROR] failed to print the movie Info! (object is NULL)\n");
 	}
 	
+	//구조체에 저장된 정보를 출력  
 	printf("Name : %s (%s)\n", mvPtr->name, mvPtr->madeIn);
 	printf("running time : %i, score : %f\n\n", mvPtr->runTime, mvPtr->score);
 	
@@ -63,9 +68,9 @@ int mv_printScore(void* obj, void* arg)
 {
 	movInfo_t* mvPtr = (movInfo_t*)obj;
 	
+	//(*(float*)arg)는 사용자가 입력한 score 
 	if((mvPtr->score) >= (*(float*)arg))
 	{
-		printf("----------------------------------------------\n");
 		printMv(mvPtr);
 		printf("----------------------------------------------\n");
 	}
@@ -77,9 +82,9 @@ int mv_printRunTime(void* obj, void* arg)
 {
 	movInfo_t* mvPtr = (movInfo_t*)obj;
 	
+	//(*(int*)arg)는 사용자가 입력한 runTime 
 	if((mvPtr->runTime) >= (*(int*)arg))
 	{
-		printf("--------------------------------------------------\n");
 		printMv(mvPtr);
 		printf("--------------------------------------------------\n");
 	}
@@ -91,9 +96,9 @@ int mv_printCountry(void* obj, void* arg)
 {
 	movInfo_t* mvPtr = (movInfo_t*)obj;
 	
+	//사용자가 입력한 country와 구조체에 저장된 국가들을 비교 
 	if(!strcmp(arg, mvPtr->madeIn))
 	{
-		printf("--------------------------------------------------\n");
 		printMv(mvPtr);
 		printf("--------------------------------------------------\n");
 	}

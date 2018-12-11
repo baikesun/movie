@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
 	void *list, *mvInfo; //pointers for linked list and a specific structure instance for a movie data
 	int (*repFunc)(void* obj, void* arg); //function pointer for using list_repeatFunc() function
 	void *arg; //a void pointer for passing argument to repFunc
-	int cnt; //integer variable
+	int cnt=0; //integer variable
 	
 	//1. reading the movie.dat-----------------------------
 	//1.1 FILE open
@@ -54,69 +54,67 @@ int main(int argc, char *argv[]) {
 	while(exit_flag == 0)
 	{
 		//2.1 print menu message and get input option
-		printf("-------------------- MENU --------------------\n");
-		printf(" 1. Print all the movies.\n");
-		printf(" 2. Search for specific country movies.\n");
-		printf(" 3. Search for specific runtime movies.\n");
-		printf(" 4. Search for specific score movies.\n");
-		printf(" 5. Exit.\n");
-		printf("----------------------------------------------\n\n");
+		printf(" -------------------- MENU --------------------\n");
+		printf("| 1. Print all the movies.                     |\n");
+		printf("| 2. Search for specific country movies.       |\n");
+		printf("| 3. Search for specific runtime movies.       |\n");
+		printf("| 4. Search for specific score movies.         |\n");
+		printf("| 5. Exit.                                     |\n");
+		printf(" ----------------------------------------------\n\n");
 		
-		printf("    Select an option : ");
+		printf("  @  Select an option : ");
 		scanf("%d", &option);
 		
 		switch(option)
 		{
 			case 1: //print all the movies
-				printf("\n printing all the movies in the list.....\n\n\n");
+				printf("\n  printing all the movies in the list.....\n\n");
 				printf("----------------------------------------------\n");
 				
 				repFunc = mv_printAll;
 				arg = NULL;
 				
-				list_repeatFunc(repFunc, arg, list);
-				
-				printf("\n    Totally %d movies are listed!\n\n", cnt);
+				//cnt = 
 				break;
 				
 			case 2: //print movies of specific country
-				printf("    Select a COUNTRY : ");
+				printf("  @  Select a COUNTRY : ");
 				scanf("%s", country);
+				printf("\n"); 
+				
+				printf("----------------------------------------------\n");
 				
 				repFunc = mv_printCountry;
 				arg = country;
 				
-				list_repeatFunc(repFunc, arg, list);
-				
-				printf("\n    Totally %d movies are listed!\n\n", cnt);
 				break;
 				
 			case 3: //print movies with long runtime
-				printf("    Select a RUNTIME : ");
+				printf("  @  Select a RUNTIME : ");
 				scanf("%d", &runTime);
+				printf("\n");
 								
+				printf("----------------------------------------------\n");
+				
 				repFunc = mv_printRunTime;
 				arg = &runTime;
 				
-				list_repeatFunc(repFunc, arg, list);
-				
-				printf("\n    Totally %d movies are listed!\n\n", cnt);
 				break;
 				
 			case 4: //print movies with high score
-				printf("    Select a SCORE : ");
+				printf("  @  Select a SCORE : ");
 				scanf("%f", &score);
+				printf("\n");
+				
+				printf("----------------------------------------------\n");
 				
 				repFunc = mv_printScore;
 				arg = &score;
 				
-				list_repeatFunc(repFunc, arg, list);
-				
-				printf("\n    Totally %d movies are listed!\n\n", cnt);
 				break;
 				
 			case 5:
-				printf("\n\n    Bye!\n\n");
+				printf("\n\n  # Bye #\n\n");
 				exit_flag = 1;
 				
 				break;
@@ -128,7 +126,16 @@ int main(int argc, char *argv[]) {
 		}
 		
 		//2.2 printing operation by function pointer (list_repeatFunc() is called here)
+		if(option != 5)
+		{
+			list_repeatFunc(repFunc, arg, list);
+		}
+		
 		//2.3 print number of movies
+		if(option != 5)
+		{
+			printf("    Totally %d movies are checked!\n\n", cnt);
+		}
 	}
 	
 	return 0;
