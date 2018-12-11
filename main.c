@@ -25,13 +25,10 @@ int main(int argc, char *argv[]) {
 	//1.1 FILE open
 	fp = fopen("movie.dat", "r");
 	
-	if(fp != NULL)
+	//파일이 열렸는지 확인하는 코드 
+	if(fp == NULL)
 	{
-		printf("  파일이 열렸습니다.\n"); 
-	}
-	else
-	{
-		printf("ERROR!\n");
+		printf("  ERROR! 파일이 열리지 않았습니다.\n"); 
 	}
 	
 	//1.2 list generation ( use function list_genList() )
@@ -50,9 +47,13 @@ int main(int argc, char *argv[]) {
 	//1.4 FILE close
 	fclose(fp);
 	
+	printf(" Reading the data files.....\n");
+	printf(" Read Done!  %d items are read\n\n\n", list_len(list));
+		
+		
 	//2. program start
 	while(exit_flag == 0)
-	{
+	{		
 		//2.1 print menu message and get input option
 		printf(" -------------------- MENU --------------------\n");
 		printf("| 1. Print all the movies.                     |\n");

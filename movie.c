@@ -48,7 +48,7 @@ void printMv(void* obj)
 	
 	//구조체에 저장된 정보를 출력  
 	printf("Name : %s (%s)\n", mvPtr->name, mvPtr->madeIn);
-	printf("running time : %i, score : %f\n", mvPtr->runTime, mvPtr->score);
+	printf("running time : %i, score : %.2f\n", mvPtr->runTime, mvPtr->score);
 	
 	return;
 }
